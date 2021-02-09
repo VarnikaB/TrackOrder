@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Track your order</title>
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <style>
+		footer {
+	           background:#2A2D35;
+	           padding:10px 0 0px 0;
+	    }
+	    footer h3 {
+	           color:#fff;
+	           font-size:20px;
+	           font-weight:600;
+	    }
+	    footer ul li {
+	           line-height:30px;
+	    }
+	    footer a, footer p {
+	           color:#b2b9c1;
+	           font-size:15px;
+	           font-weight:600;
+	    }
+	    footer a {
+	           color:#b2b9c1;
+	           text-decoration:none;
+	           font-size: 12px;
+	    }
+	    footer a:hover {
+	          color:#fff;
+	          text-decoration: none;
+	    }
+	    footer .copyright {
+	           padding-top:25px;
+	           border-top:1px solid #373b44;
+	    }	   
+	    footer .copyright p{
+	          font-size: 12px;
+	          line-height: 12px;
+	    }
+	    footer .copyright a:hover{
+	          text-decoration: none;
+	          text-shadow: 1px 2px purple;
+	   }
+        body {
+			color: #000;
+			overflow-x: hidden;
+			height: 100%;
+			background-color: antiquewhite;
+			background-repeat: no-repeat
+		}
+
+		.card {
+			z-index: 0;
+			background-color: beige;
+			padding-bottom: 20px;
+			margin-top: 90px;
+			margin-bottom: 90px;
+			border-radius: 10px
+		}
+
+		.top {
+			padding-top: 40px;
+			padding-left: 13% !important;
+			padding-right: 13% !important
+		}
+
+		#progressbar {
+			margin-bottom: 30px;
+			overflow: hidden;
+			color: green;
+			padding-left: 0px;
+			margin-top: 30px
+		}
+
+		#progressbar li {
+			list-style-type: none;
+			font-size: 13px;
+			width: 25%;
+			float: left;
+			position: relative;
+			font-weight: 400
+		}
+
+		#progressbar .step0:before {
+			font-family: FontAwesome;
+			content: "\f10c";
+			color: azure;
+		}
+
+		#progressbar li:before {
+			width: 40px;
+			height: 40px;
+			line-height: 45px;
+			display: block;
+			font-size: 20px;
+			background: aliceblue;
+			border-radius: 50%;
+			margin: auto;
+			padding: 0px
+		}
+
+		#progressbar li:after {
+			content: '';
+			width: 100%;
+			height: 12px;
+			background-color: aliceblue;
+			position: absolute;
+			left: 0;
+			top: 16px;
+			z-index: -1
+		}
+
+		#progressbar li:last-child:after {
+			border-top-right-radius: 10px;
+			border-bottom-right-radius: 10px;
+			position: absolute;
+			left: -50%
+		}
+
+		#progressbar li:nth-child(2):after,
+		#progressbar li:nth-child(3):after {
+			left: -50%
+		}
+
+		#progressbar li:first-child:after {
+			border-top-left-radius: 10px;
+			border-bottom-left-radius: 10px;
+			position: absolute;
+			left: 50%
+		}
+
+		#progressbar li:last-child:after {
+			border-top-right-radius: 10px;
+			border-bottom-right-radius: 10px
+		}
+
+		#progressbar li:first-child:after {
+			border-top-left-radius: 10px;
+			border-bottom-left-radius: 10px
+		}
+
+		#progressbar li.active:before,
+		#progressbar li.active:after {
+			background: blue;
+		}
+
+		#progressbar li.active:before {
+			content: "✔"
+		}
+
+		.icon {
+			width: 60px;
+			height: 60px;
+			margin-right: 15px
+		}
+
+		.icon-content {
+			padding-bottom: 20px
+		}
+
+		@media screen and (max-width: 992px) {
+			.icon-content {
+				width: 50%
+			}
+		}
+    </style>
+    <body>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+	        <a href="index.php" class="navbar-brand text-center ml-auto col-lg-4 col-sm-3" href="#" data-abc="true" ><strong>Shopsky</strong></a> 
+	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-toggle" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+	          <span class="navbar-toggler-icon"></span>
+	        </button>
+	        <div class="collapse navbar-collapse navbar-toggle" id="navbarNavAltMarkup">
+	          <form class="input-group form-inline my-2 my-lg-0"> 
+	            <input class="form-control col-lg-6" type="text" placeholder="Search"> 
+	            <div class="input-group-append"><button class="btn btn-secondary" type="button"><i class="fa fa-search"></i></button></div>
+	            
+	          </form>
+	          <div class="navbar-nav" >
+	            <a class="nav-item nav-link" href="signup.php" data-toggle="tooltip" data-placement="bottom" title="Login"><i class="fa fa-user"></i></a>
+	            <a class="nav-item nav-link" href="cart.php" data-toggle="tooltip" data-placement="bottom" title="Shopping Cart"><i class="fa fa-shopping-cart">&nbsp;</i></a>
+				  <a class="nav-item nav-link" href="success.php" data-toggle="tooltip" data-placement="bottom" title="Orders"><i class="fa fa-shopping-bag"></i></a>
+	          </div>
+	        </div>
+		</nav>
+		
+		<nav class="navbar navbar-expand-lg navbar-dark py-0 bg-dark px-lg-2">
+			
+				<div class="collapse navbar-collapse navbar-toggle" id="navbarNavAltMarkup">
+					<ul class="navbar-center navbar-nav list-unstyled" style="width:100%;text-align:center">
+						<li><a class="nav-item nav-link pl-lg-5 " href="#">Men Clothing</a></li>
+						<li><a class="nav-item nav-link pl-lg-5 " href="#">Women Clothing</a></li>
+						<li><a class="nav-item nav-link pl-lg-5 " href="#">Kids Clothing</a></li>
+				   </ul>
+			   </div>
+		</nav>
+        <div class="container px-1 px-md-4 py-5 mx-auto">
+            <div class="card">
+				<div class="card-header">
+					<h2 style="color: navy;text-align: center;"><b>Out for delivery</b></h2>
+				</div>
+        <div class="row">
+            <div class="col-md-3 col-lg-3 col-sm-12">
+              <center><img class="img-responsive center-block" src="shirt1.png" style="height:38vh;">
+              <b>Price: </b>&#8377; 1,999.00</center>
+            </div>
+            <div class="col-md-9 col-lg-9 col-sm-12">
+            <div class="row d-flex justify-content-between px-3 top">
+                        <div class="d-flex">
+                <h5>ORDER ID: <span class="text-success"><em>#A78PDGR</em></span></h5>
+                        </div>
+                        <div class="d-flex flex-column text-sm-right">
+                <p class="mb-0"><i class= "fa fa-calendar"></i> <b>Expected Arrival: </b><span>07-Feb-2021 9:15 AM</span></p>
+                        </div>
+              </div> 
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-12">
+                            <ul id="progressbar" class="text-center">
+                                <li class="active step0"></li>
+                                <li class="active step0"></li>
+                                <li class="active step0"></li>
+                                <li class="step0"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between top">
+                        <div class="row d-flex icon-content"> <img class="icon" src="https://i.imgur.com/9nnc9Et.png">
+                            <div class="d-flex flex-column">
+                                <p class="font-weight-bold">Order<br>Processed</p>
+                            </div>
+                        </div>
+                        <div class="row d-flex icon-content"> <img class="icon" src="https://i.imgur.com/u1AzR7w.png">
+                            <div class="d-flex flex-column">
+                                <p class="font-weight-bold">Order<br>Shipped</p>
+                            </div>
+                        </div>
+                        <div class="row d-flex icon-content"> <img class="icon" src="https://i.imgur.com/TkPm63y.png">
+                            <div class="d-flex flex-column">
+                                <p class="font-weight-bold">Order<br>En Route</p>
+                            </div>
+                        </div>
+                        <div class="row d-flex icon-content"> <img class="icon" src="https://i.imgur.com/HdsziHP.png">
+                            <div class="d-flex flex-column">
+                                <p class="font-weight-bold">Order<br>Delivered</p>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div><br><br>
+        <div class="row tracking" style="padding-top: 3em;">
+          <h4 class="offset-1" style="color:coral"><b>Tracking Details</b></h4>
+          <table class="center col-10 offset-1  table " style="border: 5px double blanchedalmond;">
+           <center> 
+              <tr style="background-color: #fff3c3">
+                <th class="col-7">Time</th>
+                <th class="col-5">Action</th>
+              </tr>
+              <tr>
+                <td>Sunday, Jan 31 2021, <small><em>Sikar</em></small></td>
+                <td>Product ordered</td>
+              </tr>
+              <tr>
+                <td>Tueday, Feb 2 2021, <small><em>Mumbai</em></small></td>
+                <td>Product shipped</td>
+              </tr>
+              <tr>
+                <td>Friday, Feb 5 2021, <small><em>Indore</em></small></td>
+                <td>Product en route</td>
+              </tr>
+           </center>
+          </table>
+        </div>
+            </div>
+        </div>
+		<footer id="as-footer">
+          <div class="container" style="text-align: center;">
+              <div class="row upper">
+                  <div class="col-sm-2 col-md-2">
+                      <div class="as-footer-box mt-4">
+                          <h3 class="mt-3">About</h3>
+                          <ul class="list-unstyled">
+                              <li><a href="#">Contact Us</a></li>
+                              <li><a href="#">Feedback</a></li>
+                              <li><a href="#">About Us</a></li>
+                              <li><a href="#">Careers</a></li>
+                          </ul>
+                      </div>
+                  </div>
+                  <div class="col-sm-2 col-md-2">
+                      <div class="as-footer-box mt-4">
+                          <h3 class="mt-3">Help</h3>
+                          <ul class="list-unstyled">
+                              <li><a href="#">Payments</a></li>
+                              <li><a href="#">Return</a></li>
+                              <li><a href="#">FAQ</a></li>
+                         </ul>
+                      </div>
+                  </div>
+                  <div class="col-sm-2 col-md-2">
+                      <div class="as-footer-box mt-4">
+                          <h3 class="mt-3">Policy</h3>
+                          <ul class="list-unstyled">
+                              <li><a href="#">Return</a></li>
+                              <li><a href="#">Terms</a></li>
+                              <li><a href="#">Security</a></li>
+                              <li><a href="#">Privacy</a></li>
+                          </ul>
+                      </div>
+                  </div>
+                  <div class="col-sm-2 col-md-2">
+                      <div class="as-footer-box mt-4">
+                          <h3 class="mt-3">Social</h3>
+                          <ul class="list-unstyled">
+                              <li><a href="#"><i class="fa fa-linkedin" ></i></a></li>
+                              <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                              <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                          </ul>
+                      </div>
+                  </div>
+                  <div class="col-sm-4 col-md-4">
+                      <div class="as-footer-box mt-4">
+                          <h3 class="mt-3">Make money with us</h3>
+                          <ul class="list-unstyled">
+                              <li><a href="#">Sell on Shopsky</a></li>
+                              <li><a href="#">Advertise Your Products</a></li>
+                              <li><a href="#">Become an Affliate</a></li>
+                              <li><a href="#"><i class="fa fa-android"></i>&nbsp;&nbsp;App Download</a></li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-12">
+                      <div class="copyright text-center mt-4 ">
+                          <p>Online Shopping Site in India for Mobiles, Electronics, Computers, Accessories, Foods, Fashion, etc. Best Offers!</p>
+                          <p>Copyright  &copy; 2020 All rights reserved | <a href="https://www.shopsky.in" style="color: violet;">Shopsky India</a></p>
+                          
+                    	</div>
+                 	</div>
+              	</div>
+              
+          	</div>
+      	</footer>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+    </body>
+</html>
